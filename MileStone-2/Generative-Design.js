@@ -15,16 +15,16 @@ Background();
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-test();
+drawSquare();
 
 //verwerking
 function Background() {
     context.fillRect(0,0, width, height); //zwarte background
 }
 
-function test(){
-    context.fillStyle = "black";
-    context.fillRect(width / 2.01, height/2.02, 10,10);
+function drawSquare(){
+    context.fillStyle = "white"; //kleur vierkant
+    context.fillRect(width / 2.01, height/2.02, 10,10); //tekent vierkant
 }
 
 

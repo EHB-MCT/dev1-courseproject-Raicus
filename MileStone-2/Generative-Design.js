@@ -30,9 +30,7 @@ function drawLines() {
             context.strokeStyle = "#ED1C24"; 
         } else if (random == 2) {
             context.strokeStyle = "#FFC700"; 
-        } else {
-            context.strokeStyle = "black";
-        }
+        } 
         Utils.drawLine(width / 2, height / 2, x2, 0);
         Utils.drawLine(width / 2, height / 2, x2, height);
         i++;

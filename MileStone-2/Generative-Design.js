@@ -9,12 +9,12 @@ heightRect = height /25;
 
 //uitvoer
 Background();
-drawTest();
+drawSpecialLines();
 drawLines();
-//verwerking
 
+//verwerking
 function Background() {
-    context.fillRect(0,0, width, height);
+    context.fillRect(0,0, width, height); //zwarte background
 }
 
 
@@ -22,23 +22,25 @@ function drawLines() {
     let i = 0;
     do {
         x2 = i * 30;
-        random = Utils.randomNumber(0, 3);
+        random = Utils.randomNumber(1, 3); //random nummer tussen 1 en 3
         
-        if (random == 0) {
-            context.strokeStyle = "#29ABE2";
-        } else if (random == 1) {
-            context.strokeStyle = "#ED1C24"; 
+        if (random == 1) { 
+            context.strokeStyle = "#29ABE2"; //blauw
         } else if (random == 2) {
-            context.strokeStyle = "#FFC700"; 
+            context.strokeStyle = "#ED1C24"; //rood
+        } else {
+            context.strokeStyle = "#FFC700"; //geel
         } 
-        Utils.drawLine(width / 2, height / 2, x2, 0);
-        Utils.drawLine(width / 2, height / 2, x2, height);
+        
+        Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm
+
+        Utils.drawLine(width / 2, height / 2, x2, height); // tekent de lijnen op de onderste helft van het scherm
         i++;
-    } while (x2 < width);
+    } while (x2 < width); //while stopt wanneer x2 kleiner is dan de width
 }
 
 
-function drawTest(){
+function drawSpecialLines(){
     let i =0;
     do{
         random = Utils.randomNumber(1,3);
@@ -63,14 +65,15 @@ function drawTest(){
     }while(x2 < width/2);
 }
 
-drawLineTest();
+drawDiagonalLines();
 
-function drawLineTest() {
+function drawDiagonalLines() {
     context.lineWidth = 5;
     context.lineCap = "round";
     for(let i = 0; i < 2; i++)
         {
             random = Utils.randomNumber(1,3);
+
             if(random == 1){
                 context.strokeStyle = Utils.hsla(197, 76, 53, 100);
             }

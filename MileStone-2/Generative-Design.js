@@ -6,7 +6,7 @@ import * as Utils from "../scripts/utils.js";
 //variabelen
 let width = context.canvas.width;
 let height = context.canvas.height;
-let random,random2, x,x2, x3,y2, y, widthRect, 
+let random, x,x2, x3,y2, y, widthRect, 
 heightRect = height /25;
 
 

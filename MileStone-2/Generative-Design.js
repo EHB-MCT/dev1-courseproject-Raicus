@@ -23,18 +23,18 @@ function Background() {
 }
 
 function drawSquare(){
-    let x_vierkant = (width - 10) /2; //x-coordinaat (plaats) van de witte vierkant
-    let y_vierkant = (height - 10) /2 //y-coordinaat (plaats) van de witte vierkant
+    let size = 10; //grootte van de vierkant
+    let x_vierkant = (width - size) /2; //x-coordinaat (plaats) van de witte vierkant
+    let y_vierkant = (height - size) /2 //y-coordinaat (plaats) van de witte vierkant
     context.fillStyle = "white"; //kleur vierkant
-    context.fillRect(x_vierkant, y_vierkant, 10,10); //tekent vierkant
+    context.fillRect(x_vierkant, y_vierkant, size, size); //tekent vierkant
 }
 
 
 function drawLines() {
     let i = 0;
     do {
-        random2 = Utils.randomNumber(30,40);
-        x2 = i * random2;
+        x2 = i * 30;
         random = Utils.randomNumber(1, 3); //random nummer tussen 1 en 3
         
         if (random == 1) { 

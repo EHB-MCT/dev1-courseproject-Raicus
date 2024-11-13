@@ -6,7 +6,7 @@ import * as Utils from "../scripts/utils.js";
 //variabelen
 let width = context.canvas.width;
 let height = context.canvas.height;
-let random, x,x2, x3,y2, y, widthRect, 
+let random,random2, x,x2, x3,y2, y, widthRect, 
 heightRect = height /25;
 
 
@@ -23,15 +23,18 @@ function Background() {
 }
 
 function drawSquare(){
+    let x_vierkant = (width - 10) /2; //x-coordinaat (plaats) van de witte vierkant
+    let y_vierkant = (height - 10) /2 //y-coordinaat (plaats) van de witte vierkant
     context.fillStyle = "white"; //kleur vierkant
-    context.fillRect(width / 2.01, height/2.02, 10,10); //tekent vierkant
+    context.fillRect(x_vierkant, y_vierkant, 10,10); //tekent vierkant
 }
 
 
 function drawLines() {
     let i = 0;
     do {
-        x2 = i * 30;
+        random2 = Utils.randomNumber(30,40);
+        x2 = i * random2;
         random = Utils.randomNumber(1, 3); //random nummer tussen 1 en 3
         
         if (random == 1) { 

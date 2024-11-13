@@ -38,11 +38,11 @@ function drawLines() {
         random = Utils.randomNumber(1, 3); //random nummer tussen 1 en 3
         
         if (random == 1) { 
-            context.strokeStyle = "#29ABE2"; //blauw
+            context.strokeStyle = Utils.hsla(197, 76, 53, 100); //blauw
         } else if (random == 2) {
-            context.strokeStyle = "#ED1C24"; //rood
+            context.strokeStyle = Utils.hsla(358, 87, 50, 100); //rood
         } else {
-            context.strokeStyle = "#FFC700"; //geel
+            context.strokeStyle = Utils.hsla(47, 100, 50, 100); //geel
         } 
         
         Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm

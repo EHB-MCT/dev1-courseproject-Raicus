@@ -40,7 +40,7 @@ function drawLines() {
     let i = 0;
     do {
         x2 = i * 30;
-        random = Utils.randomNumber(0, 2); //random nummer tussen 1 en 3
+        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 1 en 3
         if (random == 0) { 
             context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //blauw
         } else if (random == 1) {

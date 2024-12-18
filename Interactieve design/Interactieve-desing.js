@@ -8,6 +8,7 @@ let width = context.canvas.width;
 let height = context.canvas.height;
 let random, x,x2, x3,y2, y, widthRect, size, 
 heightRect = height /25;
+let isBlack = true;
 
 //object + array
 let colors = [
@@ -16,6 +17,9 @@ let colors = [
     {h: 47, s: 100, l: 50, a: 100}  // geel
 ];
 
+//mouse
+window.onmousedown = click;
+window.onmousemove = move;
 
 //uitvoer (oproep van de verschillende functies)
 Background(); 
@@ -26,7 +30,11 @@ drawCircle(10, "white");
 
 //verwerking
 function Background() {
-    context.fillStyle = "black";
+    if (isBlack) {
+        context.fillStyle = "black";
+    } else {
+        context.fillStyle = "white";
+    }
     context.fillRect(0,0, width, height); //zwarte background
 }
 
@@ -37,27 +45,25 @@ function drawCircle(size, colorcirkel){
 
 
 function drawLines() {
+    context.lineWidth = 1;
     let i = 0;
     do {
-        x2 = i * 30;
+        x2 = i * 100;
+
         random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 1 en 3
-        if (random == 0) { 
-            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //blauw
-        } else if (random == 1) {
-            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //rood
-        } else {
-            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //geel
-        } 
-        
+
+        context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
+      
         Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm
 
         Utils.drawLine(width / 2, height / 2, x2, height); // tekent de lijnen op de onderste helft van het scherm
         i++;
-    } while (x2 < width); //stopt wanneer x2 groter is dan de helft van de width
+    } while (x2 <= width - width / 15); //stopt wanneer x2 groter of gelijk is dan de helft van de width
 }
 
 
 function drawSpecialLines(){
+    context.lineWidth = 2;
     let i =0;
     do{
         random = Utils.randomNumber(1,3); //random nummer tussen 1 en 3
@@ -70,7 +76,7 @@ function drawSpecialLines(){
         else {
             context.strokeStyle = Utils.hsla(47, 100, 50, 100); //geel
         }
-
+         
         x2 = width / 2 * i / 10; //x-coordinaat voor de linkse speciale lijnen
         x3 = width - width / 2 * i / 10; //x-coordinaat voor de rechtse speciale lijnen
         y2 = height / 10 * i; //y-coordinaat            
@@ -107,3 +113,19 @@ function drawDiagonalLines() {
             Utils.drawLine(width -1,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm
         }
 }
+
+/**
+ * @param {MouseEvent} e
+ */
+
+
+function click(e) {
+    isBlack = !isBlack; 
+    Background(); 
+    drawSpecialLines();
+    drawLines();
+    drawDiagonalLines();
+    drawCircle(10, "white");
+}
+
+

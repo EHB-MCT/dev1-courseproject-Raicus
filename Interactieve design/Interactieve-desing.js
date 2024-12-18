@@ -8,6 +8,12 @@ let width = context.canvas.width;
 let height = context.canvas.height;
 let random, x,x2, x3,y2, y, widthRect, size, 
 heightRect = height /25;
+let colors = [];
+
+//object
+let color1 = {h: 197, s:76, l:53, a: 100}; //blue
+let color2 = {h: 358, s:87, l:50, a: 100}; //red
+let color3 = {h: 47, s:100, l:50, a: 100}; //yellow
 
 
 //uitvoer (oproep van de verschillende functies)
@@ -15,21 +21,23 @@ Background();
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-drawSquare(150);
+drawSquare(10, "white");
 
 //verwerking
 function Background() {
+    context.fillStyle = "black";
     context.fillRect(0,0, width, height); //zwarte background
 }
 
-function drawSquare(size){
-    let x_vierkant = (width - size) /2; //x-coordinaat (plaats) van de witte vierkant
-    let y_vierkant = (height - size) /2 //y-coordinaat (plaats) van de witte vierkant
-    context.fillStyle = "white"; //kleur vierkant
+function drawSquare(size, colorcirkel){
+    //let x_vierkant = (width - size) /2; //x-coordinaat (plaats) van de witte vierkant
+    // let y_vierkant = (height - size) /2 //y-coordinaat (plaats) van de witte vierkant
+    // context.fillStyle = "white"; //kleur vierkant (of cirkel)
+    context.fillStyle = colorcirkel;
     // context.fillRect(x_vierkant, y_vierkant, size, size); //tekent vierkant
-    Utils.fillCircle(width /2, height /2, size / 2);
-    context.strokeStyle = "black"
-    Utils.strokeCircle(width /2, height /2, size / 2);
+    Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
+    context.strokeStyle = "white"
+    // Utils.strokeCircle(width /2, height /2, size / 3);
 }
 
 

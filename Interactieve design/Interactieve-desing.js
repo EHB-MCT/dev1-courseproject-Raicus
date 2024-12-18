@@ -25,7 +25,7 @@ Background();
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-drawCircle(10, "white");
+drawCircle(10);
 
 //verwerking
 function Background() {
@@ -38,7 +38,12 @@ function Background() {
 }
 
 function drawCircle(size, colorcirkel){
-    context.fillStyle = colorcirkel; //kleur van de cirkel
+    if (isBlack) {
+        context.fillStyle = "white";
+    } else {
+        context.fillStyle = "black";
+    } 
+    
     Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
 }
 

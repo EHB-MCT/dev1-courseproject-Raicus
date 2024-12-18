@@ -15,7 +15,7 @@ Background();
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-drawSquare(10);
+drawSquare(150);
 
 //verwerking
 function Background() {
@@ -26,7 +26,10 @@ function drawSquare(size){
     let x_vierkant = (width - size) /2; //x-coordinaat (plaats) van de witte vierkant
     let y_vierkant = (height - size) /2 //y-coordinaat (plaats) van de witte vierkant
     context.fillStyle = "white"; //kleur vierkant
-    context.fillRect(x_vierkant, y_vierkant, size, size); //tekent vierkant
+    // context.fillRect(x_vierkant, y_vierkant, size, size); //tekent vierkant
+    Utils.fillCircle(width /2, height /2, size / 2);
+    context.strokeStyle = "black"
+    Utils.strokeCircle(width /2, height /2, size / 2);
 }
 
 

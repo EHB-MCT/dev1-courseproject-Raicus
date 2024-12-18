@@ -16,7 +16,7 @@ colors.push(color1);
 let color2 = {h: 358, s:87, l:50, a: 100}; //red
 colors.push(color2);
 let color3 = {h: 47, s:100, l:50, a: 100}; //yellow
-colors.push(color2);
+colors.push(color3);
 
 
 //uitvoer (oproep van de verschillende functies)

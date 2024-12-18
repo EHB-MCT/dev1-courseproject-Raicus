@@ -19,7 +19,6 @@ let colors = [
 
 //mouse
 window.onmousedown = click;
-window.onmousemove = move;
 
 //uitvoer (oproep van de verschillende functies)
 Background(); 
@@ -50,7 +49,7 @@ function drawLines() {
     do {
         x2 = i * 100;
 
-        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 1 en 3
+        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
 
         context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
       
@@ -66,16 +65,9 @@ function drawSpecialLines(){
     context.lineWidth = 2;
     let i =0;
     do{
-        random = Utils.randomNumber(1,3); //random nummer tussen 1 en 3
-        if(random == 1){
-            context.strokeStyle = Utils.hsla(197, 76, 53, 100); //blauw
-        }
-        else if(random == 2) {
-            context.strokeStyle = Utils.hsla(358, 87, 50, 100); //rood
-        }
-        else {
-            context.strokeStyle = Utils.hsla(47, 100, 50, 100); //geel
-        }
+        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
+
+        context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
          
         x2 = width / 2 * i / 10; //x-coordinaat voor de linkse speciale lijnen
         x3 = width - width / 2 * i / 10; //x-coordinaat voor de rechtse speciale lijnen
@@ -97,17 +89,9 @@ function drawDiagonalLines() {
 
     for(let i = 0; i < 2; i++)
         {
-            random = Utils.randomNumber(1,3); //random nummer tussen 1 en 3
+            random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
 
-            if(random == 1){
-                context.strokeStyle = Utils.hsla(197, 76, 53, 100); //blauw
-            }
-            else if(random == 2) {
-                context.strokeStyle = Utils.hsla(358, 87, 50, 100); //rood
-            }
-            else {
-                context.strokeStyle = Utils.hsla(47, 100, 50, 100); //geel
-            }
+            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
 
             Utils.drawLine(0,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de linker kant van het scherm
             Utils.drawLine(width -1,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm

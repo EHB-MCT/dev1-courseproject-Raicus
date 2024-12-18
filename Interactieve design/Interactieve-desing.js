@@ -8,15 +8,13 @@ let width = context.canvas.width;
 let height = context.canvas.height;
 let random, x,x2, x3,y2, y, widthRect, size, 
 heightRect = height /25;
-let colors = [];
 
-//object
-let color1 = {h: 197, s:76, l:53, a: 100}; //blue
-colors.push(color1);
-let color2 = {h: 358, s:87, l:50, a: 100}; //red
-colors.push(color2);
-let color3 = {h: 47, s:100, l:50, a: 100}; //yellow
-colors.push(color3);
+//object + array
+let colors = [
+    {h: 197, s: 76, l: 53, a: 100}, // blauw
+    {h: 358, s: 87, l: 50, a: 100}, // rood
+    {h: 47, s: 100, l: 50, a: 100}  // geel
+];
 
 
 //uitvoer (oproep van de verschillende functies)
@@ -24,7 +22,7 @@ Background();
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-drawSquare(10, "white");
+drawCircle(10, "white");
 
 //verwerking
 function Background() {
@@ -32,15 +30,9 @@ function Background() {
     context.fillRect(0,0, width, height); //zwarte background
 }
 
-function drawSquare(size, colorcirkel){
-    //let x_vierkant = (width - size) /2; //x-coordinaat (plaats) van de witte vierkant
-    // let y_vierkant = (height - size) /2 //y-coordinaat (plaats) van de witte vierkant
-    // context.fillStyle = "white"; //kleur vierkant (of cirkel)
-    context.fillStyle = colorcirkel;
-    // context.fillRect(x_vierkant, y_vierkant, size, size); //tekent vierkant
+function drawCircle(size, colorcirkel){
+    context.fillStyle = colorcirkel; //kleur van de cirkel
     Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
-    context.strokeStyle = "white"
-    // Utils.strokeCircle(width /2, height /2, size / 3);
 }
 
 
@@ -48,14 +40,13 @@ function drawLines() {
     let i = 0;
     do {
         x2 = i * 30;
-        random = Utils.randomNumber(1, 3); //random nummer tussen 1 en 3
-        
-        if (random == 1) { 
-            context.strokeStyle = Utils.hsla(197, 76, 53, 100); //blauw
-        } else if (random == 2) {
-            context.strokeStyle = Utils.hsla(358, 87, 50, 100); //rood
+        random = Utils.randomNumber(0, 2); //random nummer tussen 1 en 3
+        if (random == 0) { 
+            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //blauw
+        } else if (random == 1) {
+            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //rood
         } else {
-            context.strokeStyle = Utils.hsla(47, 100, 50, 100); //geel
+            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //geel
         } 
         
         Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm

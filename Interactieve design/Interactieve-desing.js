@@ -8,7 +8,7 @@ let width = context.canvas.width;
 let height = context.canvas.height;
 let random,
 x2, x3, y2,
-size = 10,
+size = 10, //size cirkel
 isBlack = true;
 
 //object + array
@@ -25,15 +25,16 @@ window.onmousedown = click;
 window.onmousemove = move;
 
 //uitvoer (oproep van de verschillende functies)
-randomcolors()
+randomColors()
 Background(); 
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
 drawCircle(size);
+eyes();
 
 //verwerking
-function randomcolors() {
+function randomColors() {
     for (let i = 0; i < 100; i++)
     {
         random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
@@ -87,8 +88,6 @@ function drawSpecialLines(){
         x2 = width / 2 * i / 10; //x-coordinaat voor de linkse speciale lijnen
         x3 = width - width / 2 * i / 10; //x-coordinaat voor de rechtse speciale lijnen
         y2 = height / 10 * i; //y-coordinaat            
-        
-        // console.log(x2 + " " + x3 + " " + y2); //om mijn coordinaten op de console de bekijken
 
         Utils.drawLine(0, y2, x2, height - height / 20 * i); //tekent de linkse speciale lijnen op de scherm 
         Utils.drawLine(width, y2, x3, height - height / 20 * i); //tekent de rechtse speciale lijnen op de scherm
@@ -109,8 +108,34 @@ function drawDiagonalLines() {
             context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
 
             Utils.drawLine(0,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de linker kant van het scherm
-            Utils.drawLine(width -1,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm
+            Utils.drawLine(width,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm
         }
+}
+
+function eyes() {
+    const eyeLarge = Math.min(width, height) / 12; // grootte van het oog (grote deel)
+    const eyeSmall = Math.min(width, height) / 40; // grootte van het oog (kleine deel)
+    const eyeX = width - width / 1.5; // x-coordinaat van het oog
+    const eyeY = height / 2; // y-coordinaat van het oog
+
+    if (isBlack) {
+        context.fillStyle = "white";
+    } else {
+        context.fillStyle = "black";
+    }
+
+    Utils.fillCircle(eyeX, eyeY, eyeLarge);
+    Utils.fillCircle(eyeX * 2, eyeY, eyeLarge);
+    if (isBlack) {
+        context.fillStyle = "black";
+    } else {
+        context.fillStyle = "white";
+    } 
+
+    Utils.fillCircle(eyeX, eyeY, eyeSmall);
+    Utils.fillCircle(eyeX * 2, eyeY, eyeSmall);
+
+    requestAnimationFrame(eyes);
 }
 
 /**
@@ -122,7 +147,8 @@ function move(e) {
     drawSpecialLines();
     drawLines();
     drawDiagonalLines();
-    drawCircle(10, "white");
+    drawCircle(10);
+    eyes();
 }
 
 function click(e) {
@@ -131,7 +157,8 @@ function click(e) {
     drawSpecialLines();
     drawLines();
     drawDiagonalLines();
-    drawCircle(10, "white");
+    drawCircle(10);
+    eyes();
 }
 
 

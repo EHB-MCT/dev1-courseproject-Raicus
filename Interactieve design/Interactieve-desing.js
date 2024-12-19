@@ -187,7 +187,6 @@ function eyes() {
     requestAnimationFrame(eyes);
 }
 
-
 /**
  * @param {MouseEvent} e
  */

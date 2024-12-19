@@ -8,18 +8,10 @@ let width = context.canvas.width;
 let height = context.canvas.height;
 let random,
 x2, x3, y2,
+e = 0,
 size = 10, //size cirkel
 isBlack = true,
 radius;
-
-//voor functie eyes
-let eyeProperties = {
-    large: Math.min(width, height) / 12, // grootte van het oog (grote deel)
-    small: Math.min(width, height) / 40, // grootte van het oog (kleine deel)
-    x: width - width / 1.5, // x-coordinaat van het oog
-    y: height / 2 // y-coordinaat van het oog
-};
-
 
 
 //object + array
@@ -30,6 +22,16 @@ let colors = [
 ];
 
 let randomcolor = [];
+
+//voor functie eyes
+let eyeProperties = {
+    large: Math.min(width, height) / 12, // grootte van het oog (grote deel)
+    small: Math.min(width, height) / 40, // grootte van het oog (kleine deel)
+    x: width - width / 1.5, // x-coordinaat van het oog
+    y: height / 2 // y-coordinaat van het oog
+};
+
+
 
 //mouse
 window.onmousedown = click;
@@ -59,7 +61,7 @@ function Background() {
     } else {
         context.fillStyle = "white";
     }
-    context.fillRect(0,0, width, height); //zwarte background
+    context.fillRect(0,0, width, height); //zwarte of witte background
 }
 
 function drawCircle(size){
@@ -69,7 +71,16 @@ function drawCircle(size){
         context.fillStyle = "black";
     } 
 
-    Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
+    if (size < 25)
+    {
+        Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
+    }
+    else 
+    {
+        size = 30;
+        Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
+    }
+
 }
 
 
@@ -79,7 +90,7 @@ function drawLines() {
     do {
         x2 = i * width / 20;
 
-        context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, randomcolor[i].a); //random kleur
+        context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, Utils.randomNumber(20,100)); //random kleur
 
         Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm
 
@@ -123,7 +134,7 @@ function drawDiagonalLines() {
         }
 }
 
-let e = 0;
+
 function eyes() {
     Background(); 
     drawSpecialLines();
@@ -159,7 +170,7 @@ function eyes() {
 
     if (radius == true)
     {
-        eyeProperties.small += 0.01;
+        eyeProperties.small += 0.1;
     }
     else
     {
@@ -176,17 +187,14 @@ function eyes() {
     requestAnimationFrame(eyes);
 }
 
+
 /**
  * @param {MouseEvent} e
  */
 
 function move(e) {
-    Background(); 
-    drawSpecialLines();
-    drawLines();
-    drawDiagonalLines();
-    drawCircle(size);
-    eyes();
+    drawCircle(size += 0.1);
+    
 }
 
 function click(e) {

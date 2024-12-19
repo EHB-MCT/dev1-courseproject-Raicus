@@ -13,10 +13,13 @@ isBlack = true,
 radius;
 
 //voor functie eyes
-let eyeLarge = Math.min(width, height) / 12; // grootte van het oog (grote deel)
-let eyeSmall = Math.min(width, height) / 40; // grootte van het oog (kleine deel)
-let eyeX = width - width / 1.5; // x-coordinaat van het oog
-let eyeY = height / 2; // y-coordinaat van het oog
+let eyeProperties = {
+    large: Math.min(width, height) / 12, // grootte van het oog (grote deel)
+    small: Math.min(width, height) / 40, // grootte van het oog (kleine deel)
+    x: width - width / 1.5, // x-coordinaat van het oog
+    y: height / 2 // y-coordinaat van het oog
+};
+
 
 
 //object + array
@@ -120,18 +123,21 @@ function drawDiagonalLines() {
         }
 }
 
-let frameCount = 0;
-
+let e = 0;
 function eyes() {
-
+    Background(); 
+    drawSpecialLines();
+    drawLines();
+    drawDiagonalLines();
+    drawCircle(size);
     if (isBlack) {
         context.fillStyle = "white";
     } else {
         context.fillStyle = "black";
     }
 
-    Utils.fillCircle(eyeX, eyeY, eyeLarge); // left eye
-    Utils.fillCircle(eyeX * 2, eyeY, eyeLarge); // right eye
+    Utils.fillCircle(eyeProperties.x, eyeProperties.y, eyeProperties.large); // left eye
+    Utils.fillCircle(eyeProperties.x * 2, eyeProperties.y, eyeProperties.large); // right eye
 
     if (isBlack) {
         context.fillStyle = "black";
@@ -139,25 +145,32 @@ function eyes() {
         context.fillStyle = "white";
     } 
 
-    Utils.fillCircle(eyeX, eyeY, eyeSmall); // left eye
-    Utils.fillCircle(eyeX * 2, eyeY, eyeSmall); // right eye
+    Utils.fillCircle(eyeProperties.x, eyeProperties.y, eyeProperties.small); // left eye
+    Utils.fillCircle(eyeProperties.x * 2, eyeProperties.y, eyeProperties.small); // right eye
     
-    if (eyeSmall > eyeLarge)
+    if (eyeProperties.small >= eyeProperties.large)
     {
         radius = false;
     }
-    else if (eyeSmall < eyeLarge)
+    else if (eyeProperties.small <= eyeProperties.large)
     {
         radius = true;
     }
 
     if (radius == true)
     {
-        eyeSmall += 0.001;
+        eyeProperties.small += 0.01;
     }
     else
     {
-        eyeSmall = 0
+        eyeProperties.small = 0
+        eyeProperties.x -= Utils.randomNumber(1,20);
+        e++;
+        if (e == 3)
+        {
+            eyeProperties.x = width - width / 1.5;
+            e = 0;
+        }
     }
 
     requestAnimationFrame(eyes);

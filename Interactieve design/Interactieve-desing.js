@@ -9,7 +9,15 @@ let height = context.canvas.height;
 let random,
 x2, x3, y2,
 size = 10, //size cirkel
-isBlack = true;
+isBlack = true,
+radius;
+
+//voor functie eyes
+let eyeLarge = Math.min(width, height) / 12; // grootte van het oog (grote deel)
+let eyeSmall = Math.min(width, height) / 40; // grootte van het oog (kleine deel)
+let eyeX = width - width / 1.5; // x-coordinaat van het oog
+let eyeY = height / 2; // y-coordinaat van het oog
+
 
 //object + array
 let colors = [
@@ -112,11 +120,9 @@ function drawDiagonalLines() {
         }
 }
 
+let frameCount = 0;
+
 function eyes() {
-    const eyeLarge = Math.min(width, height) / 12; // grootte van het oog (grote deel)
-    const eyeSmall = Math.min(width, height) / 40; // grootte van het oog (kleine deel)
-    const eyeX = width - width / 1.5; // x-coordinaat van het oog
-    const eyeY = height / 2; // y-coordinaat van het oog
 
     if (isBlack) {
         context.fillStyle = "white";
@@ -124,16 +130,35 @@ function eyes() {
         context.fillStyle = "black";
     }
 
-    Utils.fillCircle(eyeX, eyeY, eyeLarge);
-    Utils.fillCircle(eyeX * 2, eyeY, eyeLarge);
+    Utils.fillCircle(eyeX, eyeY, eyeLarge); // left eye
+    Utils.fillCircle(eyeX * 2, eyeY, eyeLarge); // right eye
+
     if (isBlack) {
         context.fillStyle = "black";
     } else {
         context.fillStyle = "white";
     } 
 
-    Utils.fillCircle(eyeX, eyeY, eyeSmall);
-    Utils.fillCircle(eyeX * 2, eyeY, eyeSmall);
+    Utils.fillCircle(eyeX, eyeY, eyeSmall); // left eye
+    Utils.fillCircle(eyeX * 2, eyeY, eyeSmall); // right eye
+    
+    if (eyeSmall > eyeLarge)
+    {
+        radius = false;
+    }
+    else if (eyeSmall < eyeLarge)
+    {
+        radius = true;
+    }
+
+    if (radius == true)
+    {
+        eyeSmall += 0.001;
+    }
+    else
+    {
+        eyeSmall = 0
+    }
 
     requestAnimationFrame(eyes);
 }
@@ -147,7 +172,7 @@ function move(e) {
     drawSpecialLines();
     drawLines();
     drawDiagonalLines();
-    drawCircle(10);
+    drawCircle(size);
     eyes();
 }
 
@@ -157,7 +182,7 @@ function click(e) {
     drawSpecialLines();
     drawLines();
     drawDiagonalLines();
-    drawCircle(10);
+    drawCircle(size);
     eyes();
 }
 

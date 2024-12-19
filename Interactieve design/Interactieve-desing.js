@@ -6,7 +6,10 @@ import * as Utils from "../scripts/utils.js";
 //variabelen
 let width = context.canvas.width;
 let height = context.canvas.height;
-let random, x,x2, x3,y2, y, widthRect, size, 
+let random, x,
+x2, 
+size = 10,
+x3,y2, y, widthRect,
 heightRect = height /25;
 let isBlack = true;
 
@@ -17,17 +20,29 @@ let colors = [
     {h: 47, s: 100, l: 50, a: 100}  // geel
 ];
 
+let randomcolor = [];
+
 //mouse
 window.onmousedown = click;
+window.onmousemove = move;
 
 //uitvoer (oproep van de verschillende functies)
+randomcolors()
 Background(); 
 drawSpecialLines();
 drawLines();
 drawDiagonalLines();
-drawCircle(10);
+drawCircle(size);
 
 //verwerking
+function randomcolors() {
+    for (let i = 0; i < 100; i++)
+    {
+        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
+        randomcolor.push(colors[random]);
+    }
+}
+
 function Background() {
     if (isBlack) {
         context.fillStyle = "black";
@@ -37,13 +52,13 @@ function Background() {
     context.fillRect(0,0, width, height); //zwarte background
 }
 
-function drawCircle(size, colorcirkel){
+function drawCircle(size){
     if (isBlack) {
         context.fillStyle = "white";
     } else {
         context.fillStyle = "black";
     } 
-    
+
     Utils.fillCircle(width /2, height /2, size / 2); //tekent de cirkel in het midden
 }
 
@@ -54,17 +69,14 @@ function drawLines() {
     do {
         x2 = i * 100;
 
-        random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
+        context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, randomcolor[i].a); //random kleur
 
-        context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
-      
         Utils.drawLine(width / 2, height / 2, x2, 0); // tekent de lijnen op de bovenste helft van het scherm
 
         Utils.drawLine(width / 2, height / 2, x2, height); // tekent de lijnen op de onderste helft van het scherm
         i++;
     } while (x2 <= width - width / 15); //stopt wanneer x2 groter of gelijk is dan de helft van de width
 }
-
 
 function drawSpecialLines(){
     context.lineWidth = 2;
@@ -94,9 +106,7 @@ function drawDiagonalLines() {
 
     for(let i = 0; i < 2; i++)
         {
-            random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
-
-            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
+            context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, randomcolor[i].a); //random kleur
 
             Utils.drawLine(0,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de linker kant van het scherm
             Utils.drawLine(width -1,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm
@@ -107,6 +117,13 @@ function drawDiagonalLines() {
  * @param {MouseEvent} e
  */
 
+function move(e) {
+    Background(); 
+    drawSpecialLines();
+    drawLines();
+    drawDiagonalLines();
+    drawCircle(10, "white");
+}
 
 function click(e) {
     isBlack = !isBlack; 

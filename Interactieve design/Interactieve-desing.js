@@ -6,12 +6,10 @@ import * as Utils from "../scripts/utils.js";
 //variabelen
 let width = context.canvas.width;
 let height = context.canvas.height;
-let random, x,
-x2, 
+let random,
+x2, x3, y2,
 size = 10,
-x3,y2, y, widthRect,
-heightRect = height /25;
-let isBlack = true;
+isBlack = true;
 
 //object + array
 let colors = [
@@ -67,7 +65,7 @@ function drawLines() {
     context.lineWidth = 1;
     let i = 0;
     do {
-        x2 = i * 100;
+        x2 = i * width / 20;
 
         context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, randomcolor[i].a); //random kleur
 
@@ -75,12 +73,12 @@ function drawLines() {
 
         Utils.drawLine(width / 2, height / 2, x2, height); // tekent de lijnen op de onderste helft van het scherm
         i++;
-    } while (x2 <= width - width / 15); //stopt wanneer x2 groter of gelijk is dan de helft van de width
+    } while (x2 < width); //stopt wanneer x2 groter of gelijk is dan de width - width / 15
 }
 
 function drawSpecialLines(){
     context.lineWidth = 2;
-    let i =0;
+    let i = 0;
     do{
         random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
 
@@ -106,7 +104,9 @@ function drawDiagonalLines() {
 
     for(let i = 0; i < 2; i++)
         {
-            context.strokeStyle = Utils.hsla(randomcolor[i].h, randomcolor[i].s, randomcolor[i].l, randomcolor[i].a); //random kleur
+            random = Utils.randomNumber(0, colors.length - 1); //random nummer tussen 0 en aantal gegevens in deze array
+
+            context.strokeStyle = Utils.hsla(colors[random].h, colors[random].s, colors[random].l, colors[random].a); //random kleur
 
             Utils.drawLine(0,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de linker kant van het scherm
             Utils.drawLine(width -1,i * height,width/2, height/2); //zorgt voor de twee lijnen aan de rechter kant van het scherm
@@ -133,5 +133,6 @@ function click(e) {
     drawDiagonalLines();
     drawCircle(10, "white");
 }
+
 
 
